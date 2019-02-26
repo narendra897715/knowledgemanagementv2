@@ -1,0 +1,43 @@
+<mat-sidenav-container fxFlex (mouseover)="resetIdle()" (keyup)="resetIdle()">
+  <mat-sidenav #sidenav fxLayout="column" [(opened)]="shareService.side_nav_opened" [mode]="mode.value">
+    <div fxFlex class="icon-menu mat-elevation-z1" fxLayout="column">
+      <div fxFlex fxLayout="column" style="padding-top: 10px; overflow: auto;">
+        <button style="margin: 0 5px; text-align: left;" [class.activeRouteDasboard]="shareService.sub_menu_activated_url === 'dashboard'"
+          mat-button mat-raised-button routerLink="dashboard">
+          <span class="mer-dashboard-filled"></span>&nbsp;
+          <span>Dashboard</span>
+        </button>
+      </div>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content fxFlex>
+    <div fxFlex fxLayout="column" style="overflow-y: auto">
+      <mat-toolbar class="mat-elevation-z4">
+        <div fxFlex fxLayoutAlign="space-between center">
+          <div fxLayout="row" fxLayoutAlign="center center">
+            <mat-icon *ngIf="shareService.active_candidate_menu_icon" class="menu-button" (click)="candidate_menu()">menu</mat-icon>&nbsp;&nbsp;
+            <img style="cursor: pointer;" routerLink="/km/post" width="180" src="../assets/images/meta_with_merilytics_logo.svg">
+          </div>
+          <span fxLayout="row" fxLayoutAlign="center center">
+            Hi {{shareService.login_user_details.user_name}}
+            <mat-icon color="primary" matTooltip="User Profile" [matMenuTriggerFor]="userProfile" style="padding: 0 5px; cursor: pointer; font-size: 30px;">account_circle</mat-icon>
+            <mat-menu yPosition="below" xPosition="before" [overlapTrigger]="false" #userProfile="matMenu">
+              <ng-template matMenuContent>
+                <div fxLayout="column" style="padding: 10px 15px; background-color: #ddd;">
+                  <span style="font-weight: bold;">{{shareService.user_data?.user_name}} &nbsp;</span>
+                  <span>{{shareService.user_data?.email}} &nbsp;</span>
+                </div>
+                <button mat-menu-item (click)="logOutConfirmationDialog()">
+                  <span>Logout</span>
+                </button>
+              </ng-template>
+            </mat-menu>
+          </span>
+        </div>
+      </mat-toolbar>
+    
+      <router-outlet style="display: none"></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

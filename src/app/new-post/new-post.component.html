@@ -1,0 +1,151 @@
+<mat-toolbar   class="mat-elevation-z4" *ngIf="!showandhide" style="height:10px" class="dailog-toolbar">
+  <div fxFlex="row" fxLayoutAlign="space-between center">
+    <span>New Post</span>
+    <span class="mer-close-lined" (click)="closeDailog()" style="cursor:pointer"></span>
+  </div>
+</mat-toolbar>
+<form fxLayout="column" style="padding:15px 5px 15px 16px;overflow-y: auto" [formGroup]="newPostForm" (ngSubmit)="Savenewpost()" *ngIf="!showandhide">
+    
+  <div fxLayout="column" style="max-height: 70vh;overflow:auto">
+      <perfect-scrollbar fxLayout="column" >
+        <div fxLayout="column" style="margin-right:20px;">
+    <div fxLayout="column">
+    
+      <mat-form-field  appearance="outline" style="margin-top:5px">
+          <mat-label>write subject</mat-label>
+        <input formControlName="subject" name="subject" matInput placeholder="write subject">
+        <mat-error *ngIf="f.subject.invalid">Subject is required</mat-error>
+      </mat-form-field>
+     
+    </div>
+
+    <div fxLayout="column">
+      
+      <mat-form-field  appearance="outline">
+          <mat-label>write body</mat-label>
+          <textarea [froalaEditor] formControlName="body" matInput></textarea>
+        <!-- <textarea formControlName="body" name="body" matInput placeholder="write body"></textarea> -->
+        <mat-error *ngIf="f.body.invalid">Body is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="column">
+     
+      <mat-form-field  appearance="outline">
+          <mat-label>select domains</mat-label>
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let selectedDomain of selectedDomainsList" [selectable]="selectable" [removable]="removable" (removed)="removeDomainFromSelectedList(selectedDomain)">
+            {{selectedDomain.domainName}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="select domains" #domainsInput (input)="filterDomainoptions(domains)" [(ngModel)]="domains" [ngModelOptions]="{standalone: true}" [matAutocomplete]="auto" [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur">
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedDomains($event)">
+          <mat-option *ngFor="let domain of filteredDomains" [value]="domain.domainId">
+            {{domain.domainName}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="column">
+    
+      <mat-form-field appearance="outline">
+          <mat-label>select categories</mat-label>
+        <mat-select formControlName="categoryId" name="categoryId" placeholder="Select Category">
+          <mat-option *ngFor="let category of categoriesList" [value]="category.categoryId"><span>{{category.categoryName}}</span></mat-option>
+        </mat-select>
+        <mat-error *ngIf="f.categoryId.invalid">Category is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" >
+     
+      <mat-form-field appearance="outline" fxFlex="70">
+          <mat-label>select functional areas</mat-label>
+          <mat-chip-list #functionalareaschipList>
+              <mat-chip *ngFor="let selectedFunctionalarea of selectedFunctionalareasList" [selectable]="selectable" [removable]="removable" (removed)="removeFunctionalAreaFromSelectedList(selectedFunctionalarea)">
+                {{selectedFunctionalarea.functionalAreaName}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input placeholder="select Functional Areas" #funtionalareasInput (input)="filterfunctionalareasoption(functionalareas)" [(ngModel)]="functionalareas" [ngModelOptions]="{standalone: true}"  [matAutocomplete]="functionalareasauto" [matChipInputFor]="functionalareaschipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur">
+            </mat-chip-list>
+            <mat-autocomplete #functionalareasauto="matAutocomplete" (optionSelected)="selectedFunctionalareaMethod($event)">
+              <mat-option *ngFor="let fa of filteredfunctionalareas" [value]="fa.functionalAreaId">
+                {{fa.functionalAreaName}}
+              </mat-option>
+            </mat-autocomplete>
+      </mat-form-field>
+      <span fxLayout="row" fxLayoutAlign="center center" style="padding-bottom: 1.34375em;padding-left:5px;font-size: 12px">  <img src="../../assets/images/list.svg" (click)="showfunctionalareaslist()" style="margin-right:3px">List of Domains&Functional areas</span>
+    
+
+    </div>
+
+    <div fxLayout="row">
+      <span fxFlex="20">Add Attachments</span>
+       <div fxFlex="60" style="border: 1px solid #e8e8e8;
+            border-radius: 3px;text-align: right">
+        <input id="upload" type="file" style="display:none" (change)="onFileChange($event)" multiple name="imageupload">
+        <span>{{imageData.name}}</span>
+        <img src="../../assets/images/attachments.svg" (click)="openInput()" >
+      
+      </div>
+    </div>
+
+    <div fxLayout="row" fxFlex fxLayoutGap="5px">
+      <mat-checkbox fxFlex formControlName="infoConfidentialChecked" >
+     
+      </mat-checkbox>
+      <span>I confirm that I have NOT uploaded any confidential information such as client data/outputs or company documents
+          with the post</span>
+    </div>
+
+   
+  </div>
+  </perfect-scrollbar>
+  </div>
+  <div fxLayout="row" fxFlex="10" fxLayoutAlign="end center" fxLayoutGap="10px" style="margin-right:20px">
+      <!-- <button mat-button type="submit" class="newpost" [disabled]="!form.valid || !infoConfidentialChecked" >Submit</button> -->
+      <button mat-button type="submit" class="newpost">Submit</button>
+      <button mat-button type="button" class="cancel" style="border:1px solid red;" (click)="closeDailog()">Cancel</button>
+    </div>
+</form>
+<mat-toolbar class="mat-elevation-z4 global-background-color" *ngIf="showandhide" style="height:54px;background-color:#e5669d;color:white">
+  <div fxFlex="row" fxLayoutAlign="space-between center">
+    <span>List of Domains & Functional Areas</span>
+    <span class="mer-close-lined" (click)="closeDailog()" style="cursor:pointer"></span>
+  </div>
+</mat-toolbar>
+<div fxLayout="column" style="padding:10px;height:500px;overflow-y:auto" *ngIf="showandhide">
+  <div fxLayout="row" style="border-bottom: 1px solid black;">
+
+    <span fxFlex="50" fxLayoutAlign="center center">Domains</span>
+    <span fxFlex="50" fxLayoutAlign="center center">Functional Areas</span>
+
+  </div>
+  <div fxLayout="column" style="height: 500px;
+    overflow-y: scroll;">
+
+
+    <div *ngFor="let i of functionalareaswithdomains" style="border-bottom: 1px solid black;">
+      <div fxLayout="row" fxLayoutAlign="center center">
+
+
+        <span fxFlex="50" fxLayoutAlign="center center">{{i.domainname}}</span>
+        <div fxFlex="50" fxLayoutAlign="center center">
+          <ol>
+            <li *ngFor="let i of i.respectivefunctinalareas">{{i}}</li>
+          </ol>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
+    <button mat-button class="newpost"  (click)="showfunctionalareaslist()">ok</button>
+
+  </div>
+</div>

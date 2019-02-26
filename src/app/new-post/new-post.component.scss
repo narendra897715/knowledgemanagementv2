@@ -1,0 +1,18 @@
+#editor{
+    padding-top:1rem !important;
+}
+.angular-editor-button[title="Insert Image"],
+.angular-editor-button[title="Unlink"],
+.angular-editor-button[title="Insert Link"],
+.angular-editor-button[title="Background Color"],
+.angular-editor-button[title="HTML Code"] {
+  display: none;
+}
+
+[data-cmd=insertLink],[data-cmd=insertVideo],[data-cmd=insertFile],[data-cmd=insertTable],[data-cmd=emoticons],[data-cmd=specialCharacters],[data-cmd=print],[data-cmd=getPDF],[data-cmd=help],[data-cmd=html],[data-cmd=quote],[data-cmd=inlineClass],[data-cmd=paragraphStyle] {
+    display:none;
+  }
+  .fr-wrapper div a {
+    background: white !important;
+    pointer-events: none;
+ }

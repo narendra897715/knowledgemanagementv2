@@ -1,0 +1,16 @@
+<div fxLayout="column" fxFlex>
+  <mat-toolbar style="min-height: 60px;" fxLayout="row" fxLayoutAlign="space-between center">
+    <h1 style="color: #a4d000" [innerText]="header"></h1>
+    <mat-icon title="Close" (click)="closeDialog()" style="font-size: 24px;color: #ef4f34; cursor: pointer;">close</mat-icon>
+  </mat-toolbar>
+  <div fxFlex fxLayout="column" fxLayoutAlign="center center" style="padding: 20px; overflow-y: auto;">
+    <div style="text-align: center;" fxFlex fxLayout="column" fxLayoutAlign="center center" [innerHtml]="message"></div>
+  </div>
+  <div style="padding: 20px" fxLayout="row" fxLayoutAlign="center center">
+    <button type="button" (click)="closeDialog()" mat-raised-button color="accent">{{cancel}}</button>
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <button type="submit" (click)="closeDialogWithData()" mat-raised-button color="primary">{{ok}}</button>
+    <span *ngIf="ButtonText !== ''">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <button type="button" *ngIf="ButtonText !== ''" (click)="extraOptionWithData()" mat-raised-button color="primary">{{ButtonText}}</button>
+  </div>
+</div>

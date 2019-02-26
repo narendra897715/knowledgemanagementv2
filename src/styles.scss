@@ -1,0 +1,351 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+// $recruitee-primary: mat-palette($mat-indigo);
+// $recruitee-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+// $recruitee-warn: mat-palette($mat-red);
+$meritusColor1: #95AF28;
+$meritusColor2: #383085;
+$error-message-color:#e47c61;
+$meritus-inactive-color:#707070;
+
+$meritus-green: (50: #ffffff, 100: #dde6f3, 200: #b4c9e4, 300: #7fa3d1, 400: #6992c9, 500: $meritusColor1, 600: #4072b4, 700: #38649d, 800: #305687, 900: #284770, A100: #ffffff, A200: #dde6f3, A400: #6992c9, A700: #38649d, contrast: (50: $black-87-opacity, 100: $black-87-opacity, 200: $black-87-opacity, 300: $black-87-opacity, 400: $black-87-opacity, 500: white, 600: white, 700: white, 800: white, 900: white, A100: $black-87-opacity, A200: $black-87-opacity, A400: $black-87-opacity, A700: white, ));
+$meritus-blue: (50: #ffffff, 100: #fff7f4, 200: #fecdbd, 300: #fc9977, 400: #fc8259, 500: $meritusColor2, 600: #fa551d, 700: #f44205, 800: #d63a04, 900: #b83204, A100: #ffffff, A200: #fff7f4, A400: #fc8259, A700: #f44205, contrast: (50: $black-87-opacity, 100: $black-87-opacity, 200: $black-87-opacity, 300: $black-87-opacity, 400: $black-87-opacity, 500: white, 600: white, 700: white, 800: white, 900: white, A100: $black-87-opacity, A200: $black-87-opacity, A400: $black-87-opacity, A700: white, ));
+
+$recruitee-primary: mat-palette($meritus-green, 500);
+$recruitee-accent: mat-palette($meritus-blue, 500);
+$recruitee-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$recruitee-theme: mat-light-theme($recruitee-primary, $recruitee-accent, $recruitee-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($recruitee-theme);
+@import url('http://172.16.10.51:8001/style.css');
+@import url('https://fonts.google.com/');
+/* You can add global styles to this file, and also import other style files */
+
+.primary-color {
+  color: mat-color($recruitee-primary);
+}
+
+.grey-color {
+  color: #868686;
+}
+
+.accent-color {
+  color: mat-color($recruitee-accent);
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+header,
+footer,
+nav,
+article,
+aside {
+  padding: 0;
+  margin: 0;
+}
+
+.hideLoader {
+  display: none !important;
+}
+
+/*
+    Force full width & height.
+
+    If this block is removed, the layout height/length will be determined by
+    the amount of content in the page. That might result in a page which has
+    a footer only a few inches from the top of the viewport, or one which
+    scrolls beyond the viewport.
+
+    This forces the layout to always be full screen regardless of how much,
+    or how little, content is in place. Neither is "right" or "wrong", there
+    are valid cases for each. I just want to be clear what's controlling the
+    page/viewport height.
+  */
+
+html,
+body,
+.viewport {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+/* I went with a fixed height header & footer because it's a common case.
+    This could easily be altered to flex proportionally with the page.
+  */
+mat-icon {
+  font-family: 'Material Icons';
+}
+
+header,
+footer {
+  height: 35px;
+}
+
+footer {
+  color: white;
+}
+
+/* encapsulate the various syntax in helper clases */
+
+/* items flex/expand vertically */
+
+.vbox {
+  /* previous syntax */
+  display: -webkit-box;
+  display: -moz-box;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -ms-box-orient: vertical; //box-orient: vertical;
+  /* current syntax */
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+/* items flex/expand horizontally */
+
+.hbox {
+  /* previous syntax */
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-box;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -ms-box-orient: horizontal; //box-orient: horizontal;
+  /* current syntax */
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  background-color: #ebebeb;
+}
+
+/* Region End: Layout Template CSS*/
+
+.main {
+  /* previous syntax */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -ms-box-flex: 1; //box-flex: 1;
+  /* current syntax */
+  -webkit-flex: 1;
+  -moz-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  overflow: hidden;
+  background-color: #ebebeb;
+}
+
+.confidential {
+  color: #868686;
+  font-style: italic;
+}
+
+article {
+  /* previous syntax */
+  -webkit-box-flex: 5;
+  -moz-box-flex: 5;
+  -ms-box-flex: 5; //box-flex: 5;
+  /* current syntax */
+  -webkit-flex: 5;
+  -moz-flex: 5;
+  -ms-flex: 5;
+  flex: 5;
+  overflow: auto;
+}
+
+aside,
+nav {
+  /* previous syntax */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -ms-box-flex: 1; //box-flex: 1;
+  /* current syntax */
+  -webkit-flex: 1;
+  -moz-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+mat-dialog-container {
+  padding: 0 !important;
+  border-radius: 8px !important;
+}
+
+.menu-button {
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+}
+
+.menu-button:hover {
+  background-color: gold;
+  color: white;
+  border: 1px solid gold;
+}
+
+.hideLoader {
+  display: none !important;
+}
+
+fieldset {
+  padding: 6px 15px;
+  border-radius: 5px;
+  border: 2px solid #ddd;
+}
+
+.search-highlight {
+  background-color: mat-color($recruitee-accent);
+  color: white;
+}
+
+// Material Form Field start
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: mat-color($recruitee-accent);
+  // color: #579dca;
+  background-color: #efecec;
+  border-radius: 7px;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 0.4em 0 0.6em 0;
+}
+
+.mat-form-field-infix {
+  border-top: 0.6em solid transparent;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-flex {
+  padding: 0 .4em 0 .4em !important;
+}
+
+.mat-form-field-label-wrapper {
+  top: -1.3em;
+  padding-top: 0.844em;
+}
+
+.mat-form-field-hint-spacer {
+  display: none !important;
+}
+
+.mat-form-field-subscript-wrapper {
+  margin-top: 0.2em;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-subscript-wrapper {
+  padding: 0 0.5em !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-prefix,
+.mat-form-field-appearance-outline .mat-form-field-suffix {
+  top: 0.45em !important;
+}
+
+.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,
+.mat-form-field-appearance-outline.mat-form-field-can-float .mat-input-server:focus+.mat-form-field-label-wrapper .mat-form-field-label {
+  -webkit-transform: translateX(0.2em) translateY(-1.09em) scale(0.8);
+  transform: translateX(0.2em) translateY(-1.09em) scale(0.8);
+}
+
+.mat-form-field-disabled {
+  cursor: not-allowed;
+}
+
+.cust-mat-form-field .mat-form-field-wrapper {
+  padding: 0 !important;
+}
+
+.cust-datepicker-toggle {
+  font-size: 9px;
+}
+
+.cust-datepicker-toggle .mat-button-wrapper {
+  font-size: 16px;
+}
+
+.mat-select-arrow-wrapper {
+  padding-top: 9px;
+}
+
+// Material Form Field end
+
+.candidate_more_opt .mat-menu-content {
+  padding: 0 !important;
+}
+
+.candidate_more_opt .mat-menu-item {
+  height: 36px;
+  line-height: 38px;
+}
+
+.candidate_more_opt {
+  border-radius: 20px 0 20px 20px !important;
+  background-color: opacify($color: mat-color(mat-palette($mat-indigo, 100)), $amount: 1);
+}
+
+.cust-primary-button:not([disabled]) {
+  background-image: linear-gradient(to right top, #2193b0, #6dd5ed);
+}
+.global-background-color {
+  background-color: $meritusColor1;
+}
+.newpost {
+  background-color:$meritusColor1;
+  color:white;
+  
+}
+.managesubscription {
+  background-color:#3b3782;
+  color:white;
+}
+.cancel {
+  line-height: 34px;
+  color:red;
+}
+.dailog-toolbar {
+  height:54px !important;
+  background-color:#e5669d;
+  color:white;
+}
+.ps__thumb-y {
+  background-color: $meritusColor1 !important;
+}
+@media only screen and  (max-width:960px) {
+
+    .like-replies-followers-buttons {
+      height: 30px !important;
+    width: 30px !important;
+    }
+}

@@ -1,0 +1,113 @@
+<div fxFlex fxLayout="column">
+    <div fxFlex fxLayout="row">
+        <div fxFlex fxLayout="column">
+            <div fxLayoutAlign="space-between center" style="padding:0px 10px 5px 10px" *ngIf="showdomainnameandsubscription">
+                <span>{{selecteddomaindata.domainName}}</span>
+                <span fxLayoutAlign="center center" fxLayoutGap="3px">
+                    <span *ngIf="sharedservice.selecteddomainsubscription">Subscription On</span>
+                    <span *ngIf="!sharedservice.selecteddomainsubscription">Subscription Off</span>
+                    <label class="switch">
+
+                        <input type="checkbox" [(ngModel)]="sharedservice.selecteddomainsubscription" (ngModelChange)="onChange(sharedservice.selecteddomainsubscription,selecteddomaindata.domainId)">
+
+                        <span class="slider round"></span>
+                    </label>
+                </span>
+            </div>
+            <div *ngIf="showdomainnameandsubscription" style="background-color:white;padding:10px 0px 10px 10px;margin-bottom: 3px;">
+                {{selecteddomaindata.domainDescription}}
+            </div>
+            <div fxLayout="column" fxFlex style="overflow:auto" *ngIf="sharedservice.postdata.length != 0 else nodataavailable">
+           
+                    <div *ngFor="let i of sharedservice.postdata">
+                        <div fxLayout="column" class="single-post" fxLayoutGap="3px">
+                            <div fxLayout="column" fxFlex="75" fxLayoutGap="3px" style="border-bottom:1px solid lavender">
+                                <div fxLayout="row">
+                                    <div class="post-heading" fxLayoutAlign="start center" fxLayoutGap="5px">
+                                        <img src="../../assets/images/{{i.categoryId[0].categoryImagePath}} " style="height:30px">
+                                        <span>{{i.subject}}</span>
+                                        <span class="mer-edit-filled" (click)="editthepost(i)"></span>
+                                    </div>
+                                </div>
+                                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+                                   <span>by</span>
+                                   <span style="color: #3b3782">{{i.createdByName}}</span>
+                                   <span>
+                                        <a href="{{i.mail}}">
+                                                <img [src]="'../../assets/images/outlook.svg'" style="width:15px; height:15px; margin-right:8px">
+                                              </a>
+                                              <a [href]="sanitize(i.skype)">
+                                                <img [src]="'../../assets/images/skype.svg'" style="width:15px; height:15px;">
+                                              </a>
+                                   </span>
+                                </div>
+                                <div fxLayout="row" fxLayoutGap="3px">
+                                    <div fxLayout="row" fxFlex="70">
+                                            <div fxFlex="50">
+                                                    <span style="font-size: 10px;">Domains</span>
+                                                    <div *ngFor="let j of i.domainIds">
+                                                        <span class="domain-name" matTooltip="{{j.domainName}}" matTooltipPosition="above">{{j.domainName}}</span>
+                                                    </div>
+                                                </div>
+                                                <div fxFlex="50">
+                                                        <span style="font-size: 10px;"> Functional Areas</span>
+                                                    <div *ngFor="let j of i.functionalareaIds">
+                                                        <span class="domain-name" matTooltip="{{j.functionalAreaName}}" matTooltipPosition="above">{{j.functionalAreaName}}</span>
+                                                    </div>
+                                                </div>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                            
+                            <div fxLayout="row" fxFlex="25" fxLayoutAlign="space-between center">
+                                <div fxLayout="row" fxLayoutGap="10px">
+                                    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
+                                        <span fxLayoutAlign="center center" (click)="likesThePost(i.postId,i.likeStatus)">
+                                            <img  src="../../assets/images/{{i.likebutton}}" alt="like button">
+                                            
+                                        </span>
+                                        <span *ngIf="i.likeStatus && (i.likes.length-1 == 0)" style="font-size:10px">You liked</span>
+                                        <span *ngIf="i.likeStatus && (i.likes.length-1 > 1)" style="font-size:10px">You & {{i.likes.length-1}} others</span>
+                                        <span *ngIf="i.likeStatus && (i.likes.length-1 == 1)" style="font-size:10px">You & {{i.likes.length-1}} other</span>
+                                        <span *ngIf="!i.likeStatus" style="font-size:10px">{{i.likes.length}} likes</span>
+                                    </div>
+                                    <div fxLayout="row" fxLayoutGap="5px">
+                                        <span fxLayoutAlign="center center">
+                                            <img src="../../assets/images/replies_new.svg" width="18" height="18">
+                                        </span>
+                                        <span>{{i.replies.length}} Replies</span>
+
+                                    </div>
+                                    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
+                                        <span fxLayoutAlign="center center" (click)="followThePost(i.postId,i.followStatus)">
+                                            <img src="../../assets/images/{{i.followbutton}}" alt="follow button">
+                                            
+                                        </span>
+                                        <span *ngIf="i.followStatus && (i.followers.length-1 == 0)" style="font-size:10px"> following</span>
+                                        <span *ngIf="i.followStatus && (i.followers.length-1 > 1)" style="font-size:10px">You & {{i.followers.length-1}} others</span>
+                                        <span *ngIf="i.followStatus && (i.followers.length-1 == 1)" style="font-size:10px">You & {{i.followers.length-1}} other</span>
+ 
+                                        <span *ngIf="!i.followStatus" style="font-size:10px">{{i.followers.length}} following</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutGap="5px">
+                                    <button mat-button class="newpost button-height" (click)="copylinktoclipboard('copytoClipboard')">copy link </button>
+                                    <textarea id="copytoClipboard">http://10.10.0.57:4200/#/km/sidebar/home/1</textarea>
+                                   
+                                    <button mat-button class="managesubscription button-height" (click)="readMoreAboutPost(i.postId)">Read more </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+               
+            </div>
+            <ng-template #nodataavailable>
+                <div fxFlex fxLayoutAlign="center center">
+                    <img [src]="'../../assets/images/noData.svg'" style="height:100px">
+                </div>
+
+            </ng-template>
+        </div>
+    </div>
+</div>

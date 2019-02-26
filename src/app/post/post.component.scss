@@ -1,0 +1,111 @@
+
+  .single-post {
+      background-color: white;
+    margin-bottom: 3px;
+    height:180px;
+    padding:10px 10px 0px 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);
+  }
+  .domain-name {
+      background-color:#e6e6e6;
+      padding: 3px;
+      font-size:12px;
+    border-radius: 5px;
+    max-width:80%;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    display:inline-block;
+  }
+  .like-replies-followers-buttons {
+    background-color:#e6e6e6;
+    height: 50px;
+    width: 50px;
+    border-radius: 52%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);
+    cursor:pointer;
+  }
+  .text-size {
+      font-size:12px;
+  }
+  .copy-link-button {
+      line-height: 23px;
+  }
+  .post-heading {
+      color:black;
+     
+  }
+  .side-menu-text {
+    color:black;
+    font-weight: 500
+  }
+
+  /*for toggle button*/
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color:  #95af28
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px   #95af28;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+  /*for toggle button*/
+  .button-height {
+   line-height:23px;
+   padding:0px 12px;
+  }
+
+  #copytoClipboard {
+    display:none;
+  }
